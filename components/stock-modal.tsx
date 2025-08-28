@@ -1,9 +1,10 @@
 'use client'
 
-import { X, TrendingUp, TrendingDown, Building2, DollarSign, Activity } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { X, TrendingUp, TrendingDown, Building2, DollarSign, Activity, Loader2 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Language } from '@/lib/translations'
-import { StockData } from '@/lib/stock-data'
+import { StockData, stockData as fallbackData } from '@/lib/stock-data'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 
 interface StockModalProps {
@@ -14,7 +15,47 @@ interface StockModalProps {
   lang: Language
 }
 
-export default function StockModal({ company, stock, isOpen, onClose, lang }: StockModalProps) {
+export default function StockModal({ company, stock: initialStock, isOpen, onClose, lang }: StockModalProps) {
+  const [stock, setStock] = useState<StockData | null>(initialStock)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  
+  useEffect(() => {
+    if (isOpen && company) {
+      fetchRealTimeStock()
+    }
+  }, [isOpen, company])
+  
+  const fetchRealTimeStock = async () => {
+    // Check if company has a stock symbol (skip private companies and groups)
+    const fallback = fallbackData[company]
+    if (!fallback || fallback.symbol === 'Private' || fallback.symbol === 'N/A') {
+      setStock(fallback)
+      return
+    }
+    
+    setLoading(true)
+    setError(null)
+    
+    try {
+      const response = await fetch(`/api/stock?company=${encodeURIComponent(company)}`)
+      if (!response.ok) throw new Error('Failed to fetch')
+      
+      const data = await response.json()
+      setStock({
+        ...fallback, // Keep fallback metadata
+        ...data,     // Override with real-time data
+        symbol: fallback.symbol // Keep original symbol
+      })
+    } catch (err) {
+      console.error('Stock fetch error:', err)
+      setError('Using cached data')
+      setStock(fallback) // Fall back to mock data
+    } finally {
+      setLoading(false)
+    }
+  }
+  
   if (!stock || !isOpen) return null
   
   const isPrivate = stock.symbol === 'Private' || stock.symbol === 'N/A'
@@ -55,8 +96,10 @@ export default function StockModal({ company, stock, isOpen, onClose, lang }: St
                   <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
                     {company}
                   </h2>
-                  <p className="text-gray-600 dark:text-gray-400">
+                  <p className="text-gray-600 dark:text-gray-400 flex items-center gap-2">
                     {stock.symbol}
+                    {loading && <Loader2 className="w-3 h-3 animate-spin" />}
+                    {error && <span className="text-xs text-yellow-500">({error})</span>}
                   </p>
                 </div>
               </div>
@@ -175,8 +218,8 @@ export default function StockModal({ company, stock, isOpen, onClose, lang }: St
             <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
               <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
                 {isJapanese 
-                  ? '※ 株価データはデモ用のサンプルです' 
-                  : '* Stock data is for demonstration purposes only'}
+                  ? error ? '※ キャッシュデータを表示中' : '※ リアルタイム株価データ (Yahoo Finance)'
+                  : error ? '* Showing cached data' : '* Real-time stock data from Yahoo Finance'}
               </p>
             </div>
             
