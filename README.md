@@ -8,11 +8,10 @@ A real-time GPU market supply & demand visualization dashboard that displays mar
 
 **Your Ad Here!** 🚀
 
-This project displays prominent ad spaces to 100K+ monthly viewers consisting of AI/ML developers, GPU enthusiasts, and data center operators. Two premium ad slots are available at the top and middle of the dashboard.
+This project displays ad spaces to AI/ML developers, GPU enthusiasts, and data center operators. Two ad slots are available at the top and middle of the dashboard.
 
 ### Why Advertise Here?
 - 🎯 **Targeted Audience**: Reach decision-makers in AI/ML infrastructure
-- 📈 **High Visibility**: 100,000+ monthly page views and growing
 - 🌍 **Global Reach**: English and Japanese bilingual audience
 - 💻 **Tech-savvy Users**: GPU buyers, cloud architects, and ML engineers
 
@@ -201,11 +200,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **広告枠募集中！** 🚀
 
-月間10万PV以上のAI/ML開発者、GPU愛好家、データセンター運営者にリーチできます。ダッシュボードの上部と中央に2つのプレミアム広告枠をご用意しています。
+AI/ML開発者、GPU愛好家、データセンター運営者にリーチできます。ダッシュボードの上部と中央に2つの広告枠をご用意しています。
 
 ### 広告掲載のメリット
 - 🎯 **ターゲット層**: AI/MLインフラの意思決定者にダイレクトアプローチ
-- 📈 **高い露出度**: 月間10万以上のページビュー（成長中）
 - 🌍 **グローバル展開**: 日英バイリンガル対応
 - 💻 **専門性の高いユーザー**: GPUバイヤー、クラウドアーキテクト、MLエンジニア
 
