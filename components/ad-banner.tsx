@@ -1,7 +1,7 @@
 'use client'
 
 import { Megaphone } from 'lucide-react'
-import { Language, t } from '@/lib/translations'
+import { Language } from '@/lib/translations'
 
 interface AdBannerProps {
   lang: Language

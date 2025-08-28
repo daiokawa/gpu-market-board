@@ -24,6 +24,7 @@ export default function StockModal({ company, stock: initialStock, isOpen, onClo
     if (isOpen && company) {
       fetchRealTimeStock()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, company])
   
   const fetchRealTimeStock = async () => {
