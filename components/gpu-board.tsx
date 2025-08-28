@@ -1,18 +1,19 @@
 'use client'
 
 import { GPUBoard } from '@/lib/types'
-import { Package, Clock, TrendingUp, TrendingDown, AlertCircle } from 'lucide-react'
+import { Package, Clock, TrendingUp, TrendingDown, AlertCircle, ChartLine } from 'lucide-react'
 import { t, Language } from '@/lib/translations'
 import { motion } from 'framer-motion'
 
 interface GPUBoardComponentProps {
   board: GPUBoard
   onClick: () => void
+  onBuyerClick: (buyerName: string) => void
   index: number
   lang: Language
 }
 
-export default function GPUBoardComponent({ board, onClick, index, lang }: GPUBoardComponentProps) {
+export default function GPUBoardComponent({ board, onClick, onBuyerClick, index, lang }: GPUBoardComponentProps) {
   const { product, suppliers, buyers, demandSupplyRatio } = board
   
   const totalSupply = suppliers.reduce((acc, s) => acc + s.monthlyCapacity, 0)
@@ -96,9 +97,20 @@ export default function GPUBoardComponent({ board, onClick, index, lang }: GPUBo
           </h4>
           <div className="space-y-2 max-h-40 overflow-y-auto">
             {buyers.slice(0, 4).map(buyer => (
-              <div key={buyer.id} className="bg-orange-50 dark:bg-orange-900/20 rounded p-2">
+              <div 
+                key={buyer.id} 
+                className="bg-orange-50 dark:bg-orange-900/20 rounded p-2 cursor-pointer 
+                         hover:bg-orange-100 dark:hover:bg-orange-900/30 transition-colors group"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  onBuyerClick(buyer.name)
+                }}
+              >
                 <div className="flex justify-between items-start">
-                  <p className="text-sm font-medium text-gray-900 dark:text-white">{buyer.name}</p>
+                  <p className="text-sm font-medium text-gray-900 dark:text-white flex items-center gap-1">
+                    {buyer.name}
+                    <ChartLine className="w-3 h-3 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </p>
                   {!buyer.verified && (
                     <span title={t(lang, 'unverified')}>
                       <AlertCircle className="w-3 h-3 text-yellow-500" />

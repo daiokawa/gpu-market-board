@@ -5,15 +5,19 @@ import { Activity, TrendingUp, Package, Clock, Globe } from 'lucide-react'
 import GPUBoardComponent from '@/components/gpu-board'
 import GPUDetailModal from '@/components/gpu-detail-modal'
 import AdBanner from '@/components/ad-banner'
+import StockModal from '@/components/stock-modal'
 import { mockGPUBoards } from '@/lib/mock-data'
 import { GPUBoard } from '@/lib/types'
 import { t, Language } from '@/lib/translations'
+import { stockData } from '@/lib/stock-data'
 
 export default function Home() {
   const [filter, setFilter] = useState<'all' | 'shortage' | 'balanced'>('all')
   const [selectedBoard, setSelectedBoard] = useState<GPUBoard | null>(null)
   const [modalOpen, setModalOpen] = useState(false)
   const [language, setLanguage] = useState<Language>('en')
+  const [selectedCompany, setSelectedCompany] = useState<string | null>(null)
+  const [stockModalOpen, setStockModalOpen] = useState(false)
   
   const filteredBoards = useMemo(() => {
     switch (filter) {
@@ -43,6 +47,11 @@ export default function Home() {
   const handleBoardClick = (board: GPUBoard) => {
     setSelectedBoard(board)
     setModalOpen(true)
+  }
+  
+  const handleBuyerClick = (buyerName: string) => {
+    setSelectedCompany(buyerName)
+    setStockModalOpen(true)
   }
   
   const lastUpdate = new Date().toLocaleString(language === 'ja' ? 'ja-JP' : 'en-US', {
@@ -185,6 +194,7 @@ export default function Home() {
               key={board.product.id} 
               board={board} 
               onClick={() => handleBoardClick(board)}
+              onBuyerClick={handleBuyerClick}
               index={index}
               lang={language}
             />
@@ -203,6 +213,7 @@ export default function Home() {
                   key={board.product.id} 
                   board={board} 
                   onClick={() => handleBoardClick(board)}
+                  onBuyerClick={handleBuyerClick}
                   index={index + 3}
                   lang={language}
                 />
@@ -216,6 +227,14 @@ export default function Home() {
         board={selectedBoard} 
         isOpen={modalOpen} 
         onClose={() => setModalOpen(false)}
+        lang={language}
+      />
+      
+      <StockModal
+        company={selectedCompany || ''}
+        stock={selectedCompany ? stockData[selectedCompany] : null}
+        isOpen={stockModalOpen}
+        onClose={() => setStockModalOpen(false)}
         lang={language}
       />
       
