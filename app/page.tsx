@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react'
 import { Activity, TrendingUp, Package, Clock, Globe } from 'lucide-react'
 import GPUBoardComponent from '@/components/gpu-board'
 import GPUDetailModal from '@/components/gpu-detail-modal'
+import AdBanner from '@/components/ad-banner'
 import { mockGPUBoards } from '@/lib/mock-data'
 import { GPUBoard } from '@/lib/types'
 import { t, Language } from '@/lib/translations'
@@ -87,6 +88,10 @@ export default function Home() {
       </header>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <AdBanner lang={language} slot="top" />
+      </div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow cursor-pointer hover:shadow-lg transition-shadow">
             <div className="flex items-center justify-between">
@@ -175,7 +180,7 @@ export default function Home() {
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredBoards.map((board, index) => (
+          {filteredBoards.slice(0, 3).map((board, index) => (
             <GPUBoardComponent 
               key={board.product.id} 
               board={board} 
@@ -185,6 +190,26 @@ export default function Home() {
             />
           ))}
         </div>
+        
+        {filteredBoards.length > 3 && (
+          <>
+            <div className="mt-6">
+              <AdBanner lang={language} slot="middle" />
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+              {filteredBoards.slice(3).map((board, index) => (
+                <GPUBoardComponent 
+                  key={board.product.id} 
+                  board={board} 
+                  onClick={() => handleBoardClick(board)}
+                  index={index + 3}
+                  lang={language}
+                />
+              ))}
+            </div>
+          </>
+        )}
       </div>
       
       <GPUDetailModal 

@@ -30,7 +30,8 @@ export const translations = {
     close: "Close",
     language: "Language",
     source: "Source",
-    viewOnGitHub: "View on GitHub"
+    viewOnGitHub: "View on GitHub",
+    sponsoredContent: "Sponsored Content"
   },
   ja: {
     title: "GPU市場板",
@@ -63,7 +64,8 @@ export const translations = {
     close: "閉じる",
     language: "言語",
     source: "ソース",
-    viewOnGitHub: "GitHubで見る"
+    viewOnGitHub: "GitHubで見る",
+    sponsoredContent: "スポンサーコンテンツ"
   }
 }
 

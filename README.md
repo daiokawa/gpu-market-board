@@ -4,6 +4,27 @@ A real-time GPU market supply & demand visualization dashboard that displays mar
 
 [日本語版はこちら](#日本語)
 
+## 💰 Sponsorship Opportunities
+
+**Your Ad Here!** 🚀
+
+This project displays prominent ad spaces to 100K+ monthly viewers consisting of AI/ML developers, GPU enthusiasts, and data center operators. Two premium ad slots are available at the top and middle of the dashboard.
+
+### Why Advertise Here?
+- 🎯 **Targeted Audience**: Reach decision-makers in AI/ML infrastructure
+- 📈 **High Visibility**: 100,000+ monthly page views and growing
+- 🌍 **Global Reach**: English and Japanese bilingual audience
+- 💻 **Tech-savvy Users**: GPU buyers, cloud architects, and ML engineers
+
+### Available Ad Formats
+- **Top Banner**: Premium position above main stats
+- **Middle Banner**: Strategic placement between GPU listings
+- Custom integration available for premium sponsors
+
+**Contact**: ads@gpu-market-board.com or [Open an Issue](https://github.com/daiokawa/gpu-market-board/issues/new?title=Sponsorship%20Inquiry)
+
+---
+
 ## ✨ Features
 
 - **Real-time Market Data**: Near real-time tracking of GPU supply and demand
@@ -175,6 +196,27 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 # GPU市場板 📊
 
 株式取引板のように GPU 市場の需給動向を可視化するリアルタイムダッシュボード。NVIDIA H100、A100、L40S、RTX 4090 などの市場データを包括的に追跡します。
+
+## 💰 スポンサーシップのご案内
+
+**広告枠募集中！** 🚀
+
+月間10万PV以上のAI/ML開発者、GPU愛好家、データセンター運営者にリーチできます。ダッシュボードの上部と中央に2つのプレミアム広告枠をご用意しています。
+
+### 広告掲載のメリット
+- 🎯 **ターゲット層**: AI/MLインフラの意思決定者にダイレクトアプローチ
+- 📈 **高い露出度**: 月間10万以上のページビュー（成長中）
+- 🌍 **グローバル展開**: 日英バイリンガル対応
+- 💻 **専門性の高いユーザー**: GPUバイヤー、クラウドアーキテクト、MLエンジニア
+
+### 広告フォーマット
+- **トップバナー**: メイン統計の上部プレミアム位置
+- **ミドルバナー**: GPUリスティング間の戦略的配置
+- プレミアムスポンサー向けカスタム統合も可能
+
+**お問い合わせ**: ads@gpu-market-board.com または [Issueを作成](https://github.com/daiokawa/gpu-market-board/issues/new?title=スポンサーシップのお問い合わせ)
+
+---
 
 ## ✨ 機能
 
