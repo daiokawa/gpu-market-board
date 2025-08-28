@@ -1,6 +1,6 @@
 'use client'
 
-import { ResponsiveContainer, ComposedChart, XAxis, YAxis, CartesianGrid, Tooltip, Bar, Line, Cell } from 'recharts'
+import { ResponsiveContainer, ComposedChart, XAxis, YAxis, CartesianGrid, Tooltip, Bar, Cell } from 'recharts'
 
 interface CandlestickData {
   time: string
@@ -16,8 +16,22 @@ interface CandlestickChartProps {
 }
 
 // カスタムローソク足の描画
-const CandlestickBar = (props: any) => {
-  const { x, y, width, height, payload } = props
+const CandlestickBar = (props: {
+  x?: number
+  y?: number
+  width?: number
+  height?: number
+  payload?: {
+    open: number
+    close: number
+    high: number
+    low: number
+    highY?: number
+    lowY?: number
+  }
+}) => {
+  const { x = 0, y = 0, width = 0, height = 0, payload } = props
+  if (!payload) return null
   const isGreen = payload.close >= payload.open
   const color = isGreen ? '#10b981' : '#ef4444'
   
@@ -68,7 +82,12 @@ export default function CandlestickChart({ data }: CandlestickChartProps) {
     color: item.close >= item.open ? '#10b981' : '#ef4444'
   }))
   
-  const CustomTooltip = ({ active, payload }: any) => {
+  const CustomTooltip = ({ active, payload }: {
+    active?: boolean
+    payload?: Array<{
+      payload: CandlestickData
+    }>
+  }) => {
     if (active && payload && payload[0]) {
       const data = payload[0].payload
       return (
