@@ -230,12 +230,25 @@ AI/ML開発者、GPU愛好家、データセンター運営者にリーチでき
 
 ライブデモ: [ahillchan.com/gpu](https://ahillchan.com/gpu/)
 
+## 📸 スクリーンショット
+
+### ダッシュボード表示
+- 複数GPUモデルの需給概要
+- 色分けされたステータスインジケーター（不足/均衡/過剰）
+- リアルタイム価格と変動率表示
+
+### 詳細モーダル
+- 価格履歴チャート
+- 詳細なサプライヤー情報
+- バイヤー需要の内訳
+- リードタイム見積もり
+
 ## 🛠️ 技術スタック
 
 - **フレームワーク**: Next.js 15.5 (App Router)
 - **言語**: TypeScript
 - **スタイリング**: Tailwind CSS
-- **チャート**: Recharts
+- **チャート**: カスタムSVG + Recharts
 - **アニメーション**: Framer Motion
 - **アイコン**: Lucide React
 
@@ -259,6 +272,104 @@ npm run dev
 
 4. ブラウザで [http://localhost:3000](http://localhost:3000) を開く
 
+## 🏗️ プロダクション用ビルド
+
+```bash
+# アプリケーションをビルド
+npm run build
+
+# プロダクションサーバーを起動
+npm start
+```
+
+静的エクスポート用:
+```bash
+# next.config.ts に以下を追加:
+# output: 'export'
+
+npm run build
+# 静的ファイルは 'out' ディレクトリに生成される
+```
+
+## 🌐 デプロイ
+
+### Vercel（推奨）
+```bash
+npx vercel
+```
+
+### GitHub Pages
+1. `next.config.ts` を更新:
+```typescript
+const nextConfig = {
+  output: 'export',
+  basePath: '/gpu-market-board',
+  assetPrefix: '/gpu-market-board',
+}
+```
+
+2. ビルドしてデプロイ:
+```bash
+npm run build
+# 'out' ディレクトリを gh-pages ブランチにプッシュ
+```
+
+## 📊 データ構造
+
+ダッシュボードは各GPUに対して以下の情報を表示:
+
+- **製品情報**: モデル、メモリサイズ、メモリタイプ
+- **価格情報**: 現在価格、価格変動、変動率
+- **供給側**: サプライヤー、月次供給能力、歩留まり率、推定在庫
+- **需要側**: バイヤー、数量、ニュースソース、検証ステータス
+- **市場指標**: 需給比率、リードタイム
+
+## 🎨 カスタマイズ
+
+### 新しいGPUモデルの追加
+
+`lib/mock-data.ts` を編集して新しいGPUモデルを追加:
+
+```typescript
+{
+  product: {
+    id: 'new-gpu',
+    manufacturer: 'NVIDIA',
+    model: 'New GPU',
+    // ... その他のプロパティ
+  },
+  suppliers: [...],
+  buyers: [...],
+  demandSupplyRatio: 1.5,
+  lastUpdate: new Date()
+}
+```
+
+### 翻訳の変更
+
+多言語サポート用に `lib/translations.ts` を更新:
+
+```typescript
+export const translations = {
+  en: {
+    // 英語の翻訳
+  },
+  ja: {
+    // 日本語の翻訳
+  }
+}
+```
+
+## 🤝 コントリビュート
+
+コントリビュートを歓迎します！プルリクエストをお気軽にお送りください。
+
+1. リポジトリをフォーク
+2. フィーチャーブランチを作成 (`git checkout -b feature/AmazingFeature`)
+3. 変更をコミット (`git commit -m 'Add some AmazingFeature'`)
+4. ブランチにプッシュ (`git push origin feature/AmazingFeature`)
+5. プルリクエストを開く
+
 ## 👤 作者
 
 **Koichi Okawa**
@@ -268,4 +379,10 @@ npm run dev
 
 ## 📄 ライセンス
 
-このプロジェクトは MIT ライセンスの下でライセンスされています。
+このプロジェクトは MIT ライセンスの下でライセンスされています - 詳細は [LICENSE](LICENSE) ファイルをご覧ください。
+
+## 🙏 謝辞
+
+- データソースはデモンストレーション用にシミュレートされています
+- 金融市場の取引板からインスピレーションを得ています
+- モダンなWeb技術で構築されています
