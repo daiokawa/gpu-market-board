@@ -37,7 +37,7 @@ This project displays prominent ad spaces to 100K+ monthly viewers consisting of
 
 ## 🚀 Demo
 
-Visit the live demo: [gpu.ahillchan.com](https://gpu.ahillchan.com)
+Visit the live demo: [ahillchan.com/gpu](https://ahillchan.com/gpu/)
 
 ## 📸 Screenshots
 
@@ -230,7 +230,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🚀 デモ
 
-ライブデモ: [gpu.ahillchan.com](https://gpu.ahillchan.com)
+ライブデモ: [ahillchan.com/gpu](https://ahillchan.com/gpu/)
 
 ## 🛠️ 技術スタック
 
