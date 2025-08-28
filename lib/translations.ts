@@ -1,0 +1,75 @@
+export const translations = {
+  en: {
+    title: "GPU Market Board",
+    subtitle: "Near Real-time GPU Market Supply & Demand Dashboard",
+    lastUpdate: "Last Update",
+    totalDemand: "Total Demand",
+    totalSupply: "Total Supply",
+    avgRatio: "Avg Ratio",
+    avgLeadTime: "Avg Lead Time",
+    months: "months",
+    immediate: "Immediate",
+    all: "All",
+    supplyShortage: "Supply Shortage",
+    balanced: "Balanced",
+    supply: "Supply",
+    demand: "Demand",
+    units: "units",
+    month: "/month",
+    yield: "Yield",
+    estimatedStock: "Est. Stock",
+    supplyDemandBalance: "Supply/Demand Balance",
+    severeShortage: "Severe Shortage",
+    moderateShortage: "Moderate Shortage",
+    wellBalanced: "Well Balanced",
+    oversupply: "Oversupply",
+    leadTime: "Lead Time",
+    more: "more",
+    unverified: "Unverified",
+    priceHistory: "Price History",
+    close: "Close",
+    language: "Language",
+    source: "Source",
+    viewOnGitHub: "View on GitHub"
+  },
+  ja: {
+    title: "GPU市場板",
+    subtitle: "ほぼリアルタイムGPU市場需給ダッシュボード",
+    lastUpdate: "最終更新",
+    totalDemand: "総需要",
+    totalSupply: "総供給",
+    avgRatio: "平均需給比",
+    avgLeadTime: "平均リードタイム",
+    months: "ヶ月",
+    immediate: "即納",
+    all: "すべて",
+    supplyShortage: "供給不足",
+    balanced: "バランス良好",
+    supply: "供給",
+    demand: "需要",
+    units: "枚",
+    month: "/月",
+    yield: "歩留まり",
+    estimatedStock: "在庫推定",
+    supplyDemandBalance: "需給バランス",
+    severeShortage: "深刻な供給不足",
+    moderateShortage: "供給不足",
+    wellBalanced: "バランス良好",
+    oversupply: "供給過多",
+    leadTime: "リードタイム",
+    more: "社",
+    unverified: "未確認情報",
+    priceHistory: "価格履歴",
+    close: "閉じる",
+    language: "言語",
+    source: "ソース",
+    viewOnGitHub: "GitHubで見る"
+  }
+}
+
+export type Language = keyof typeof translations
+export type TranslationKey = keyof typeof translations.en
+
+export function t(lang: Language, key: TranslationKey): string {
+  return translations[lang][key] || translations.en[key]
+}
