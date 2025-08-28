@@ -5,7 +5,7 @@ import { X, TrendingUp, TrendingDown, Building2, DollarSign, Activity, Loader2 }
 import { motion, AnimatePresence } from 'framer-motion'
 import { Language } from '@/lib/translations'
 import { StockData, stockData as fallbackData } from '@/lib/stock-data'
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
+import CandlestickChart from './candlestick-chart'
 
 interface StockModalProps {
   company: string
@@ -61,16 +61,30 @@ export default function StockModal({ company, stock: initialStock, isOpen, onClo
   const isPrivate = stock.symbol === 'Private' || stock.symbol === 'N/A'
   const isJapanese = lang === 'ja'
   
-  // Mock intraday data
-  const intradayData = isPrivate ? [] : Array.from({ length: 24 }, (_, i) => {
+  // Mock candlestick data (5分足で生成)
+  const candlestickData = isPrivate ? [] : Array.from({ length: 12 }, (_, i) => {
     const basePrice = stock.price - stock.change
-    const variance = (Math.random() - 0.5) * 4
-    const trend = (stock.change / 24) * i
+    const time = 9 + Math.floor(i / 2) // 9時から15時まで
+    const minute = (i % 2) * 30 // 0分または30分
+    
+    // リアルな値動きをシミュレート
+    const volatility = stock.price * 0.002 // 0.2%のボラティリティ
+    const trend = (stock.change / 12) * i
+    
+    const open = basePrice + trend + (Math.random() - 0.5) * volatility
+    const close = basePrice + trend + (stock.change / 12) + (Math.random() - 0.5) * volatility
+    const high = Math.max(open, close) + Math.random() * volatility
+    const low = Math.min(open, close) - Math.random() * volatility
+    
     return {
-      time: `${i}:00`,
-      price: parseFloat((basePrice + trend + variance).toFixed(2))
+      time: `${time}:${minute === 0 ? '00' : '30'}`,
+      open: parseFloat(open.toFixed(2)),
+      high: parseFloat(high.toFixed(2)),
+      low: parseFloat(low.toFixed(2)),
+      close: parseFloat(close.toFixed(2)),
+      volume: Math.floor(Math.random() * 1000000) + 500000
     }
-  }).concat([{ time: 'Now', price: stock.price }])
+  })
   
   return (
     <AnimatePresence>
@@ -167,31 +181,13 @@ export default function StockModal({ company, stock: initialStock, isOpen, onClo
                 </div>
                 
                 <div className="mb-6">
-                  <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
+                  <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white flex items-center gap-2">
                     {isJapanese ? '本日の値動き' : 'Today\'s Performance'}
+                    <span className="text-xs text-gray-500 dark:text-gray-400 font-normal">
+                      ({isJapanese ? '30分足' : '30-min candles'})
+                    </span>
                   </h3>
-                  <ResponsiveContainer width="100%" height={200}>
-                    <LineChart data={intradayData}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis 
-                        dataKey="time" 
-                        interval="preserveStartEnd"
-                        tick={{ fontSize: 12 }}
-                      />
-                      <YAxis 
-                        domain={['dataMin - 1', 'dataMax + 1']}
-                        tick={{ fontSize: 12 }}
-                      />
-                      <Tooltip formatter={(value: number) => `$${value.toFixed(2)}`} />
-                      <Line 
-                        type="monotone" 
-                        dataKey="price" 
-                        stroke={stock.change > 0 ? '#10b981' : '#ef4444'}
-                        strokeWidth={2}
-                        dot={false}
-                      />
-                    </LineChart>
-                  </ResponsiveContainer>
+                  <CandlestickChart data={candlestickData} />
                 </div>
                 
                 <div className="grid grid-cols-2 gap-4">
